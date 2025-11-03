@@ -1,137 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PikaBot</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PikaBot - Piyangshu's AI Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo">
-                <i class="fas fa-robot"></i>
-                <h1>PikaBot AI</h1>
-            </div>
-            <div class="status-indicator">
-                <div class="status-dot" id="status-dot"></div>
-                <span id="status-text">Connected</span>
-            </div>
-        </header>
+  <!-- Background Animation -->
+  <div class="background-animation">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
 
-        <div class="main-content">
-            <div class="chat-section">
-                <div id="chat-container" class="chat-container">
-                    <div class="welcome-message">
-                        <i class="fas fa-sparkles"></i>
-                        <h3>Welcome to PikaBot AI</h3>
-                        <p>I can help you with text, images, voice, and much more!</p>
-                    </div>
-                </div>
-
-                <div class="input-section">
-                    <div class="file-preview" id="file-preview" style="display: none;">
-                        <img id="preview-image" alt="Preview">
-                        <button class="remove-file" onclick="removeFile()">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-
-                    <div class="input-container">
-                        <div class="input-wrapper">
-                            <input type="text" id="user-input" placeholder="Ask me anything..." maxlength="1000">
-                            <div class="input-actions">
-                                <button class="action-btn" onclick="toggleFileInput()" title="Upload Image">
-                                    <i class="fas fa-image"></i>
-                                </button>
-                                <button class="action-btn" onclick="startVoiceRecording()" id="voice-btn" title="Voice Input">
-                                    <i class="fas fa-microphone"></i>
-                                </button>
-                                <button class="send-btn" onclick="sendMessage()" id="send-btn">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
-                    
-                    <div class="feature-buttons">
-                        <button class="feature-btn" onclick="generateImage()">
-                            <i class="fas fa-palette"></i>
-                            Generate Image
-                        </button>
-                        <button class="feature-btn" onclick="analyzeImage()">
-                            <i class="fas fa-search"></i>
-                            Analyze Image
-                        </button>
-                        <button class="feature-btn" onclick="toggleVoiceReply()">
-                            <i class="fas fa-volume-up"></i>
-                            <span id="voice-toggle-text">Voice ON</span>
-                        </button>
-                        <button class="feature-btn" onclick="clearChat()">
-                            <i class="fas fa-trash"></i>
-                            Clear Chat
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="sidebar">
-                <div class="model-selector">
-                    <label for="model-select">AI Model:</label>
-                    <select id="model-select">
-                        <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                        <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
-                        <option value="gemini-1.0-pro-vision">Gemini 1.0 Vision</option>
-                    </select>
-                </div>
-
-                <div class="settings-panel">
-                    <h4><i class="fas fa-cog"></i> Settings</h4>
-                    <div class="setting-item">
-                        <label for="temperature">Creativity Level:</label>
-                        <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7">
-                        <span id="temp-value">0.7</span>
-                    </div>
-                    <div class="setting-item">
-                        <label for="max-tokens">Max Response Length:</label>
-                        <input type="range" id="max-tokens" min="100" max="4000" step="100" value="1000">
-                        <span id="tokens-value">1000</span>
-                    </div>
-                </div>
-
-                <div class="stats-panel">
-                    <h4><i class="fas fa-chart-bar"></i> Session Stats</h4>
-                    <div class="stat-item">
-                        <span>Messages:</span>
-                        <span id="message-count">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Images:</span>
-                        <span id="image-count">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Voice:</span>
-                        <span id="voice-count">0</span>
-                    </div>
-                </div>
-            </div>
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Header -->
+    <header class="chat-header">
+      <div class="header-content">
+        <div class="bot-avatar">
+          <div class="avatar-circle">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="status-indicator"></div>
         </div>
+        <div class="header-info">
+          <h1>PikaBot</h1>
+          <p class="subtitle">Piyangshu's Personal AI Assistant</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="theme-toggle" title="Toggle Theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="icon-btn" id="clear-chat" title="Clear Chat">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+      <div class="chat-box" id="chat-box">
+        <!-- Welcome Message -->
+        <div class="welcome-message">
+          <div class="welcome-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h2>Welcome to PikaBot!</h2>
+          <p>Your intelligent AI companion powered by Google Gemini</p>
+          <div class="feature-cards">
+            <div class="feature-card">
+              <i class="fas fa-comments"></i>
+              <span>Chat</span>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-image"></i>
+              <span>Image Analysis</span>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-file-alt"></i>
+              <span>File Reading</span>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-microphone"></i>
+              <span>Voice Input</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="typing-indicator" id="typing-indicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-container">
+        <div class="input-wrapper">
+          <!-- Feature Buttons -->
+          <div class="feature-buttons">
+            <button class="feature-btn" id="image-btn" title="Upload Image">
+              <i class="fas fa-image"></i>
+            </button>
+            <button class="feature-btn" id="file-btn" title="Upload File">
+              <i class="fas fa-paperclip"></i>
+            </button>
+            <button class="feature-btn" id="voice-btn" title="Voice Input">
+              <i class="fas fa-microphone"></i>
+            </button>
+          </div>
+
+          <!-- Hidden File Inputs -->
+          <input type="file" id="image-input" accept="image/*" style="display: none;" />
+          <input type="file" id="file-input" accept=".txt,.pdf,.doc,.docx" style="display: none;" />
+
+          <!-- Text Input -->
+          <div class="text-input-group">
+            <textarea 
+              id="user-input" 
+              placeholder="Type your message here..." 
+              rows="1"
+            ></textarea>
+            <button class="send-btn" id="send-btn">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- File Preview -->
+        <div class="file-preview" id="file-preview" style="display: none;">
+          <div class="preview-content">
+            <span class="preview-text"></span>
+            <button class="remove-file" id="remove-file">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Loading Modal -->
-    <div class="modal" id="loading-modal">
-        <div class="modal-content">
-            <div class="loading-spinner"></div>
-            <p id="loading-text">Processing your request...</p>
-        </div>
-    </div>
+    <!-- Footer -->
+    <footer class="chat-footer">
+      <p>Powered by Google Gemini AI • Made with <i class="fas fa-heart"></i> by Piyangshu</p>
+    </footer>
+  </div>
 
-    <!-- Audio element for voice replies -->
-    <audio id="audio-player" style="display: none;"></audio>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,1 +1,5 @@
+# Ignore .env file (contains secret keys)
 .env
+
+# Ignore node_modules folder (contains dependencies)
+node_modules/
